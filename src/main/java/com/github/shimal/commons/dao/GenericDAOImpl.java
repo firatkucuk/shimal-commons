@@ -34,13 +34,7 @@ public class GenericDAOImpl extends HibernateDaoSupport implements GenericDAO {
     @Transactional
     public long count(String query) {
 
-        Object uniqueResult = sessionFactory.getCurrentSession().createQuery(query).uniqueResult();
-
-        if (uniqueResult != null) {
-            return (Long) uniqueResult;
-        }
-
-        return 0L;
+        return (Long) getSession().createQuery(query).uniqueResult();
     }
 
 
