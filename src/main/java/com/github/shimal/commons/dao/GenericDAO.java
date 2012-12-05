@@ -3,7 +3,6 @@ package com.github.shimal.commons.dao;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.sql.DataSource;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.dao.DataAccessException;
@@ -188,12 +187,6 @@ public interface GenericDAO {
 
     @Transactional
     public <T> List<T> select(Class<T> c, String hql, int firstResult, int maxResults);
-
-
-
-    //~ ----------------------------------------------------------------------------------------------------------------
-
-    public void setDataSource(DataSource dataSource);
 
 
 
