@@ -9,27 +9,22 @@ import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
-import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 
 
-@Repository
 public class GenericDAOImpl extends HibernateDaoSupport implements GenericDAO {
 
 
 
     //~ --- [INSTANCE FIELDS] ------------------------------------------------------------------------------------------
 
-    @Autowired
-    private DataSource                dataSource;
-    @Autowired
-    private SessionFactory            sessionFactory;
+    private DataSource     dataSource;
+    private SessionFactory sessionFactory;
 
 
 
@@ -330,6 +325,15 @@ public class GenericDAOImpl extends HibernateDaoSupport implements GenericDAO {
         query.setFirstResult(firstResult).setMaxResults(maxResults).setFetchSize(maxResults).setTimeout(30);
 
         return (List<T>) query.list();
+    }
+
+
+
+    //~ ----------------------------------------------------------------------------------------------------------------
+
+    public void setDataSource(DataSource dataSource) {
+
+        this.dataSource = dataSource;
     }
 
 
