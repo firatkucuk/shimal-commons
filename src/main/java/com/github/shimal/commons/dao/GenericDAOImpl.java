@@ -31,7 +31,7 @@ public class GenericDAOImpl extends HibernateDaoSupport implements GenericDAO {
     //~ --- [METHODS] --------------------------------------------------------------------------------------------------
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public long count(String query) {
 
         return (Long) getSession().createQuery(query).uniqueResult();
@@ -43,7 +43,7 @@ public class GenericDAOImpl extends HibernateDaoSupport implements GenericDAO {
 
     // dao.count(User.class, "item.active != 1");
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public <T> long count(Class<T> c, String where) {
 
         return count(c, where, (Object[]) null);
@@ -55,7 +55,7 @@ public class GenericDAOImpl extends HibernateDaoSupport implements GenericDAO {
 
     // dao.count(User.class, "item.username = ?", "admin");
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public <T> long count(Class<T> c, String where, Object value) {
 
         return count(c, where, new Object[] { value });
@@ -67,7 +67,7 @@ public class GenericDAOImpl extends HibernateDaoSupport implements GenericDAO {
 
     // dao.count(User.class, "item.username = ? and item.active = ?", "admin", true);
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public <T> long count(Class<T> c, String where, Object... values) {
 
         String     whereClause = ((where == null) || where.isEmpty()) ? "" : ("where " + where);
@@ -83,7 +83,7 @@ public class GenericDAOImpl extends HibernateDaoSupport implements GenericDAO {
 
     // dao.countAll(User.class);
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public <T> long countAll(Class<T> c) {
 
         return count(c, null);
@@ -94,7 +94,7 @@ public class GenericDAOImpl extends HibernateDaoSupport implements GenericDAO {
     //~ ----------------------------------------------------------------------------------------------------------------
 
     @Override
-    @Transactional
+    @Transactional(readOnly = false)
     public <T> void delete(T item) {
 
         Session session = sessionFactory.getCurrentSession();
@@ -106,7 +106,7 @@ public class GenericDAOImpl extends HibernateDaoSupport implements GenericDAO {
     //~ ----------------------------------------------------------------------------------------------------------------
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public <T> List<T> find(Class<T> c, String query) {
 
         return find(c, query, (Object[]) null);
@@ -117,7 +117,7 @@ public class GenericDAOImpl extends HibernateDaoSupport implements GenericDAO {
     //~ ----------------------------------------------------------------------------------------------------------------
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public <T> List<T> find(Class<T> c, String query, Object value) {
 
         return find(c, query, new Object[] { value });
@@ -128,7 +128,7 @@ public class GenericDAOImpl extends HibernateDaoSupport implements GenericDAO {
     //~ ----------------------------------------------------------------------------------------------------------------
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public <T> List<T> find(Class<T> c, String query, Object... values) {
 
         return getHibernateTemplate().find(query, values);
@@ -139,7 +139,7 @@ public class GenericDAOImpl extends HibernateDaoSupport implements GenericDAO {
     //~ ----------------------------------------------------------------------------------------------------------------
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public <T> List<T> findAll(Class<T> c) {
 
         return getHibernateTemplate().find("from " + c.getSimpleName());
@@ -150,7 +150,7 @@ public class GenericDAOImpl extends HibernateDaoSupport implements GenericDAO {
     //~ ----------------------------------------------------------------------------------------------------------------
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public <T> List<T> findByCriteria(DetachedCriteria criterion) {
 
         return getHibernateTemplate().findByCriteria(criterion);
@@ -161,7 +161,7 @@ public class GenericDAOImpl extends HibernateDaoSupport implements GenericDAO {
     //~ ----------------------------------------------------------------------------------------------------------------
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public <T> List<T> findByCriteria(DetachedCriteria criterion, int firstResult, int maxResults) {
 
         return getHibernateTemplate().findByCriteria(criterion, firstResult, maxResults);
@@ -172,7 +172,7 @@ public class GenericDAOImpl extends HibernateDaoSupport implements GenericDAO {
     //~ ----------------------------------------------------------------------------------------------------------------
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public <T> List<T> findByExample(T exampleEntity, int firstResult, int maxResults) {
 
         return (List<T>) getHibernateTemplate().findByExample(exampleEntity, firstResult, maxResults);
@@ -183,7 +183,7 @@ public class GenericDAOImpl extends HibernateDaoSupport implements GenericDAO {
     //~ ----------------------------------------------------------------------------------------------------------------
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public <T> List<T> findByNamedParam(String queryString, String[] paramNames, Object[] values) {
 
         return (List<T>) getHibernateTemplate().findByNamedParam(queryString, paramNames, values);
@@ -194,7 +194,7 @@ public class GenericDAOImpl extends HibernateDaoSupport implements GenericDAO {
     //~ ----------------------------------------------------------------------------------------------------------------
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public <T> T first(Class<T> c) {
 
         return first(c, null);
@@ -205,7 +205,7 @@ public class GenericDAOImpl extends HibernateDaoSupport implements GenericDAO {
     //~ ----------------------------------------------------------------------------------------------------------------
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public <T> T first(Class<T> c, String query) {
 
         return first(c, query, (Object[]) null);
@@ -216,7 +216,7 @@ public class GenericDAOImpl extends HibernateDaoSupport implements GenericDAO {
     //~ ----------------------------------------------------------------------------------------------------------------
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public <T> T first(Class<T> c, String query, Object value) {
 
         return first(c, query, new Object[] { value });
@@ -227,7 +227,7 @@ public class GenericDAOImpl extends HibernateDaoSupport implements GenericDAO {
     //~ ----------------------------------------------------------------------------------------------------------------
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public <T> T first(Class<T> c, String query, Object... values) {
 
         HibernateTemplate ht = new HibernateTemplate(getSessionFactory());
@@ -243,7 +243,7 @@ public class GenericDAOImpl extends HibernateDaoSupport implements GenericDAO {
     //~ ----------------------------------------------------------------------------------------------------------------
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public <T> T get(Class<T> c, Serializable id) {
 
         return getHibernateTemplate().get(c, id);
@@ -254,7 +254,7 @@ public class GenericDAOImpl extends HibernateDaoSupport implements GenericDAO {
     //~ ----------------------------------------------------------------------------------------------------------------
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public <T> Criterion getCriteria(Class<T> c) {
 
         return (Criterion) getHibernateTemplate().getSessionFactory().openSession().createCriteria(c);
@@ -265,7 +265,7 @@ public class GenericDAOImpl extends HibernateDaoSupport implements GenericDAO {
     //~ ----------------------------------------------------------------------------------------------------------------
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public JdbcTemplate newJdbcTemplate() {
 
         return new JdbcTemplate(dataSource);
@@ -276,7 +276,7 @@ public class GenericDAOImpl extends HibernateDaoSupport implements GenericDAO {
     //~ ----------------------------------------------------------------------------------------------------------------
 
     @Override
-    @Transactional
+    @Transactional(readOnly = false)
     public <T> void persist(T item) throws DataAccessException {
 
         getHibernateTemplate().persist(item);
@@ -287,7 +287,7 @@ public class GenericDAOImpl extends HibernateDaoSupport implements GenericDAO {
     //~ ----------------------------------------------------------------------------------------------------------------
 
     @Override
-    @Transactional
+    @Transactional(readOnly = false)
     public <T> T save(T item) {
 
         // Aynı anda iki session açıksa saveOrUpdate hataya düşüyor merge düzgün çalışıyor.
@@ -301,7 +301,7 @@ public class GenericDAOImpl extends HibernateDaoSupport implements GenericDAO {
     //~ ----------------------------------------------------------------------------------------------------------------
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public <T> List<T> select(Class<T> c, String hql) {
 
         return (List<T>) getSession().createQuery(hql).list();
@@ -312,7 +312,7 @@ public class GenericDAOImpl extends HibernateDaoSupport implements GenericDAO {
     //~ ----------------------------------------------------------------------------------------------------------------
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public <T> List<T> select(Class<T> c, String hql, int firstResult, int maxResults) {
 
         Query query = getSession().createQuery(hql);
@@ -335,7 +335,7 @@ public class GenericDAOImpl extends HibernateDaoSupport implements GenericDAO {
     //~ ----------------------------------------------------------------------------------------------------------------
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public <T> List<T> take(Class<T> c, int maxResultCount) {
 
         return take(c, maxResultCount, null);
@@ -346,7 +346,7 @@ public class GenericDAOImpl extends HibernateDaoSupport implements GenericDAO {
     //~ ----------------------------------------------------------------------------------------------------------------
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public <T> List<T> take(Class<T> c, int maxResultCount, String query) {
 
         return take(c, maxResultCount, query, (Object[]) null);
@@ -357,7 +357,7 @@ public class GenericDAOImpl extends HibernateDaoSupport implements GenericDAO {
     //~ ----------------------------------------------------------------------------------------------------------------
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public <T> List<T> take(Class<T> c, int maxResultCount, String query, Object value) {
 
         return take(c, maxResultCount, query, new Object[] { value });
@@ -368,7 +368,7 @@ public class GenericDAOImpl extends HibernateDaoSupport implements GenericDAO {
     //~ ----------------------------------------------------------------------------------------------------------------
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public <T> List<T> take(Class<T> c, int maxResultCount, String query, Object... values) {
 
         HibernateTemplate ht = new HibernateTemplate(getSessionFactory());
